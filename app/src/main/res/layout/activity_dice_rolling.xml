@@ -13,6 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:background="#FFA500"
         android:orientation="vertical">
 
@@ -47,10 +48,17 @@
             android:background="#cccccc"
             android:layout_width="match_parent"
             android:layout_height="10px"/>
-
+        <TextView
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="Select Die"
+            android:layout_margin="2px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <!--to choose game type -->
         <Spinner
-            android:id="@+id/spinnergametype"
+            android:id="@+id/spinnerdicetype"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </Spinner>
@@ -94,7 +102,7 @@
                 <TextView
                     android:textColor="#000000"
                     android:textSize="25dp"
-                    android:text="Team A"
+                    android:text="Roll Once"
                     android:gravity="top"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
@@ -102,9 +110,9 @@
                 <!-- text view to disply team A score -->
                 <TextView
                     android:textColor="#000000"
-                    android:textSize="25dp"
-                    android:text="Score: 0"
-                    android:id="@+id/textviewteam1score"
+                    android:textSize="15dp"
+                    android:text="Side Up: "
+                    android:id="@+id/textviewrollonce"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
@@ -119,30 +127,16 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
-                <!-- button to increase score of selected team-->
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="2px"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold"
-                    android:id="@+id/btplus"
-                    android:background="@drawable/roundedbtn"
-                    android:text="+"
-                    android:textSize="70px"
-                    android:layout_marginBottom="5px"
-                    android:onClick="increaseScore"
-                    />
+
                 <!-- switch to change current scoring team -->
                 <Switch
-                    android:text="On-Team A Selected"
+                    android:text="Roll Once"
                     android:textColor="#00FF00"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/switchteamscore" />
+                    android:id="@+id/switchrolltype" />
                 <!-- button to decrease score of selected team-->
                 <Button
                     android:gravity="center"
@@ -151,12 +145,12 @@
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/btminus"
-                    android:background="@drawable/roundedbtn"
-                    android:text="-"
-                    android:textSize="70px"
+                    android:id="@+id/btnrolldice"
+
+                    android:text="Roll"
+                    android:textSize="50px"
                     android:layout_marginBottom="2px"
-                    android:onClick="decreaseScore"
+                    android:onClick="rollDice"
                     />
 
             </LinearLayout>
@@ -176,17 +170,17 @@
                     android:textSize="25dp"
                     android:gravity="top"
                     android:textStyle="bold"
-                    android:text="Team B"
+                    android:text="Roll Twice"
                     android:layout_height="wrap_content" />
                 <!-- text view to display team B score-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:textColor="#000000"
-                    android:textSize="25dp"
-                    android:id="@+id/textviewteam2score"
+                    android:textSize="15dp"
+                    android:id="@+id/textviewrolltwice"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:text="Score: 0"
+                    android:text="Side Up:"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
@@ -211,15 +205,18 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ente Sides of Dice"
+            android:inputType="number"
+            android:hint="Enter Sides of Dice"
             android:id="@+id/edittextowndicesides"
             />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ADD"
+            android:layout_margin="2dp"
             android:textColor="#ffffff"
             android:background="#000000"
+            android:onClick="addNewDiceType"
             android:layout_gravity="center_horizontal"
             android:textStyle="bold"/>
 

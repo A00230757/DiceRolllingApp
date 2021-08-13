@@ -1,52 +1,44 @@
 package ca.harpreet.dicerollingapp;
 
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Locale;
-
 import android.speech.tts.TextToSpeech;
+import android.widget.Toast;
 
 public class DiceRollingActivity extends AppCompatActivity {
     MediaPlayer mp;// media player used to play back sound in main activity
     TextToSpeech textToSpeech;// it gives welcome message , selected game type and selected teams , and also current score
 
-    String teamselected ="A";  // to store current selected team
-    String dicetype="2"; // to store selected game type
-    String teamaname="Canada"; // to store team A name
-    String teambname ="India"; // to store team B name
-    int teamascore =0;  //variable to store  team A score , initialized to 0
-    int teambscore =0;  //variable to store  team B score , initialized to 0
-    int currentselectedpoints = 2; //variable to store  current selected points based on selected radio button
+    String rollType ="once";  // to store current selected team
+    String dicetype="4"; // to store selected game type
+    int sideUpAfterFirstRoll,sideUpAfterSecondRoll;
 
     ArrayList<String> arraydicetype = new ArrayList<>();
-    Switch switchteamscore; // to swith team which is currently scoring
+    Switch switchrolltype; // to swith team which is currently scoring
     Spinner spinnerdicetype; // three spinners to store gametype(name with image) , team A (names), team B(names) data respectively.
 
-    Button btnplus , btnminus; // buttons to increase and decrease score
+    Button btnrolldice ;
 
     CheckBox checkboxgamemusic;// check box at top on or off background music in app
-    TextView textviewteam1score , textviewteam2score; // text view to show teamA and B score
+    TextView textviewrollonce , textviewrolltwice; // text view to show teamA and B score
+
+    EditText edittextowndicesides;
+
+    Die objdie;
 
 
     @Override
@@ -63,16 +55,16 @@ public class DiceRollingActivity extends AppCompatActivity {
         });
 
         // giving memory to spinners , image views , switch , button , check box , radiobutton , radio button group , text view
-        spinnerdicetype = (Spinner) (findViewById(R.id.spinnergametype));
+        spinnerdicetype = (Spinner) (findViewById(R.id.spinnerdicetype));
 
-        switchteamscore = (Switch) (findViewById(R.id.switchteamscore));
-        btnplus=(Button)(findViewById(R.id.btplus));
-        btnminus=(Button)(findViewById(R.id.btminus));
+        switchrolltype = (Switch) (findViewById(R.id.switchrolltype));
+        btnrolldice=(Button)(findViewById(R.id.btnrolldice));
         checkboxgamemusic = (CheckBox) (findViewById(R.id.checkboxgamemusic));
 
-        textviewteam1score = (TextView) (findViewById(R.id.textviewteam1score));
-        textviewteam2score = (TextView) (findViewById(R.id.textviewteam2score));
+        edittextowndicesides = (EditText)(findViewById(R.id.edittextowndicesides));
 
+        textviewrollonce = (TextView) (findViewById(R.id.textviewrollonce));
+        textviewrolltwice = (TextView) (findViewById(R.id.textviewrolltwice));
 
         arraydicetype.add("4");
         arraydicetype.add("6");
@@ -80,15 +72,7 @@ public class DiceRollingActivity extends AppCompatActivity {
         arraydicetype.add("10");
         arraydicetype.add("12");
         arraydicetype.add("20");
-
-        final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arraydicetype); // adapter binded with spinnercountry1
-
-
-
-        //to bind spinners with adapters
-        spinnerdicetype.setAdapter(adapter1);
-
-
+        initializeArray();
         spinnerdicetype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {// spinner listener when we change game type
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -96,31 +80,28 @@ public class DiceRollingActivity extends AppCompatActivity {
                 dicetype = arraydicetype.get(position);// change gametype value globally
                 welcomeMessage();// to give message which game type , team A country and team B country is selected
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
-        switchteamscore.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {// switch listener when we switch team from A to B or from B to A for scoring
+        switchrolltype.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {// switch listener when we switch team from A to B or from B to A for scoring
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
                     //Toast.makeText(getApplicationContext(), "On", Toast.LENGTH_SHORT).show();
-                    switchteamscore.setText("Team B Selected"); // to update on txg view which team is currently selected
-                    teamselected = "B"; // keep currently selected team for scoring  globally , we use it while scoring
+                    switchrolltype.setText("Roll Twice"); // to update on txg view which team is currently selected
+                    rollType = "twice"; // keep currently selected team for scoring  globally , we use it while scoring
                 }
                 else
                 {
                     //Toast.makeText(getApplicationContext(), "Off", Toast.LENGTH_SHORT).show();
-                    switchteamscore.setText("Team A Selected");
-                    teamselected = "A";
+                    switchrolltype.setText("Roll Once");
+                    rollType = "once";
                 }
             }
         });
-
         checkboxgamemusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {// checkbox listener to on / off background music
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -129,59 +110,87 @@ public class DiceRollingActivity extends AppCompatActivity {
                     mp = MediaPlayer.create(getApplicationContext(), R.raw.b);// memory given to media player
                     mp.setLooping(true);// to play sound continuously set it true
                     mp.start(); // start sound
-
                 }
                 else
                 {
                     mp.stop(); // stop sound
-
                 }
             }
         });
-
     }
 
+    public  void initializeArray(){
+
+        final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arraydicetype); // adapter binded with spinnercountry1
+        //to bind spinners with adapters
+        spinnerdicetype.setAdapter(adapter1);
+        adapter1.notifyDataSetChanged();
+    }
     public void welcomeMessage(){// this function is used to give message when game type , team A or team B is changed
         //initialize score of both teams to 0, as teams or gametype is changed
-        teamascore =0;//
-        textviewteam1score.setText("Score: "+teamascore);
-        teambscore =0;
-        textviewteam2score.setText("Score: "+teambscore);
-        textToSpeech.speak("Welcome to score keeper selected game type  is "+ dicetype +" and  team A is "+teamaname+" teams B is "+teambname, TextToSpeech.QUEUE_FLUSH, null);
+        textviewrollonce.setText("Side Up:");
+        textviewrolltwice.setText("Side Up:");
+        textToSpeech.speak("Welcome to Dice Rolling App . Selected Dice with "+dicetype+" Sides", TextToSpeech.QUEUE_FLUSH, null);
     }
-
-    public void increaseScore(View view){//this function is used to increase score of currently scoring team
-        //this function chk with control statements which team is selected for scoring using some global variables value
-        if( teamselected.equals("A")){
-            teamascore = teamascore + currentselectedpoints;
-            textviewteam1score.setText("Score: "+teamascore);//update score on text view
-            textToSpeech.speak(teamaname+" team A score is "+teamascore, TextToSpeech.QUEUE_FLUSH, null);//give message of current score
-
-        }
-        else{// similarly else case for team B
-            teambscore =teambscore + currentselectedpoints;
-            textviewteam2score.setText("Score: "+teambscore);
-            textToSpeech.speak(teambname+ " team B  score is "+teambscore, TextToSpeech.QUEUE_FLUSH, null);
-        }
-
-    }
-
-
     //all the functionality of decrease function is same as increase function except it decrease score
-    public void decreaseScore(View view){
-        if( teamselected.equals("A")){
-            teamascore =teamascore - currentselectedpoints;
-            textviewteam1score.setText("Score: "+teamascore);
-            textToSpeech.speak(teamaname+" team A score is "+teamascore, TextToSpeech.QUEUE_FLUSH, null);
+    public void rollDice(View view){
+        if( rollType.equals("once")){
+            objdie = new Die(Integer.parseInt(dicetype));
+            sideUpAfterFirstRoll=objdie.getSideUp();
+            textviewrollonce.setText("Side up: "+sideUpAfterFirstRoll);
+            textToSpeech.speak("Side Up"+sideUpAfterFirstRoll, TextToSpeech.QUEUE_FLUSH, null);
         }
         else{
-            teambscore =teambscore - currentselectedpoints;
-            textviewteam2score.setText("Score: "+teambscore);
-            textToSpeech.speak(teambname +" team B score is "+teambscore, TextToSpeech.QUEUE_FLUSH, null);
+            objdie = new Die(Integer.parseInt(dicetype));
+            sideUpAfterFirstRoll=objdie.getSideUp();
+            objdie.roll();
+            sideUpAfterSecondRoll=objdie.getSideUp();
+            textviewrolltwice.setText("1stRoll SideUp: "+sideUpAfterFirstRoll+"\n2ndRoll SideUp:"+sideUpAfterSecondRoll);
+            textToSpeech.speak("1st Roll Side Up: "+sideUpAfterFirstRoll+",Second Roll Side Up:"+sideUpAfterSecondRoll, TextToSpeech.QUEUE_FLUSH, null);
         }
     }
 
+    public void addNewDiceType(View view){
+        try{
+            int value = Integer.parseInt(edittextowndicesides.getText().toString());
+            String newDiceSides=value+"";
+            if(newDiceSides.isEmpty()){
+                Toast.makeText(getApplicationContext(),"Please enter number of sides",Toast.LENGTH_SHORT).show();
+            }
+           else  if(value >Byte.MAX_VALUE){
+                edittextowndicesides.setText("");
+                Toast.makeText(getApplicationContext(),"Value too large , enter number of sides between 1-127",Toast.LENGTH_SHORT).show();
+            }
+            else  if(value <=0){
+                edittextowndicesides.setText("");
+                Toast.makeText(getApplicationContext(),"0 or Negative values not allowed ,enter number of sides between 1-127",Toast.LENGTH_SHORT).show();
+            }
+            else{
+                boolean flag=false;
+                for(int i =0;i<arraydicetype.size();i++){
+                    Log.d("MSSGG",newDiceSides+","+arraydicetype.get(i)+",i ="+i);
+                    if(newDiceSides.equals(arraydicetype.get(i))){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(flag){
+                    edittextowndicesides.setText("");
+                    Toast.makeText(getApplicationContext(),"Dice with sames sides already exists",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    arraydicetype.add(newDiceSides);
+                    initializeArray();
+                    spinnerdicetype.setSelection(arraydicetype.size()-1);
+                    edittextowndicesides.setText("");
+                    Toast.makeText(getApplicationContext(),"New Dice Added In Spinner View, Choose Now",Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+        catch (Exception ex){
+            Toast.makeText(getApplicationContext(),"Number of dice sides must be numeric",Toast.LENGTH_SHORT).show();
+        }
 
 
-
+    }
 }
