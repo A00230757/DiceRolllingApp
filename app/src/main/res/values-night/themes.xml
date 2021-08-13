@@ -2,15 +2,110 @@
     <!-- Base application theme. -->
     <style name="Theme.DiceRollingApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <!--  colorPrimary changed from @color/purple_200 to #F5EFA3   below is light cream color for colorPrimary-->
+        <item name="colorPrimary">#000000</item>
+
+        <!--        colorPrimaryVariant changed from @color/purple_700 to #024E3A-->
+        <item name="colorPrimaryVariant">#024E3A</item>
+
+        <!--        colorOnPrimary changed from @color/black to #FFFFFF-->
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <!-- Secondary brand color.@color/teal_200  to #98DC87-->
+        <item name="colorSecondary">#98DC87</item>
+
+        <!-- colorSecondaryVariant brand color.@color/teal_200  to #98DC87-->
+        <item name="colorSecondaryVariant">#98DC87</item>
+
+        <!--        colorOnSecondary changed from @color/black to #FFFFFF-->
+        <item name="colorOnSecondary">#FFFFFF</item>
+
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="android:statusBarColor" tools:targetApi="l">#000000</item>
+        <item name="titleTextColor">#000000</item>
+
+        <!-- background color. -->
+        <item name="android:background">#024E3A</item>
+        <item name="android:textViewStyle">@style/splashtextview</item>
+        <item name="android:editTextStyle">@style/LinearLayoutStyle</item>
+    </style>
+    <!--    this style(ButtonStyle1) is used to change style of rolldice  button-->
+    <style name="ButtonStyle1" parent="@android:style/Widget.Button">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">50px</item>
+        <item name="backgroundColor">#000000</item>
+        <item name="android:layout_marginBottom">2px</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+
+    </style>
+    <!--    this style(ButtonStyle1) is used to change style of add custom dice buttons-->
+    <style name="ButtonStyle2" parent="@android:style/Widget.Button">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">50px</item>
+        <item name="backgroundColor">#000000</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">5px</item>
+
+    </style>
+    <!--    this style(ButtonStyle1) is used to change store,view,delete custom dice buttons color-->
+    <style name="ButtonStyle3" parent="@android:style/Widget.Button">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">10dp</item>
+        <item name="backgroundColor">#000000</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">5px</item>
+
+    </style>
+
+    <!--    this style(TextviewStyle1,2,3,4,5) is used to change textview(result)
+     color , style , size , margin bottom , layout gravity
+     of the different text views used-->
+    <style name="TextviewStyle1" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+    <style name="TextviewStyle2" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:layout_margin">2dp</item>
+    </style>
+    <style name="TextviewStyle3" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:gravity">top</item>
+    </style>
+    <style name="TextviewStyle4" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="TextviewStyle5" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">27dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+    <!--    this style(LinearLayoutStyle) is used for margin and background of main linear layout from device screen.-->
+    <style name="LinearLayoutStyle" >
+        <item name="android:layout_margin">5dp</item>
+    </style>
+    <style name="switchcheckbox" >
+        <item name="android:textColor">#F595A2</item>
+    </style>
+    <style name="splashtextview" >
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20dp</item>
     </style>
 </resources>

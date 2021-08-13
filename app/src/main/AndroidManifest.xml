@@ -9,6 +9,7 @@
         android:roundIcon="@drawable/dicerollingappicon"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiceRollingApp">
+
         <activity android:name=".RollhistoryActivity"></activity>
         <activity
             android:name=".CustomDiceHistoryDialogActivity"

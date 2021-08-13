@@ -14,17 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="#FFA500"
+        style="@style/LinearLayoutStyle"
         android:orientation="vertical">
 
         <!-- this text view is used  for top text Score Keeping App-->
         <TextView
-            android:gravity="center"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="25dp"
+            style="@style/TextviewStyle1"
             android:text="Dice Rolling"
-            android:layout_margin="10px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -38,8 +34,9 @@
         <CheckBox
             android:text="Game Music On/Off"
             android:layout_width="match_parent"
-            android:textColor="#000000"
+            style="@style/switchcheckbox"
             android:textStyle="bold"
+            android:textSize="20dp"
             android:layout_height="wrap_content"
             android:id="@+id/checkboxgamemusic" />
 
@@ -49,11 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="10px"/>
         <TextView
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="20dp"
+            style="@style/TextviewStyle2"
             android:text="Select Die"
-            android:layout_margin="2px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <!--to choose game type -->
@@ -100,21 +94,15 @@
                 android:orientation="vertical">
                 <!-- text view to display team A-->
                 <TextView
-                    android:textColor="#000000"
-                    android:textSize="25dp"
+                    style="@style/TextviewStyle3"
                     android:text="Roll Once"
-                    android:gravity="top"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <!-- text view to disply team A score -->
                 <TextView
-                    android:textColor="#000000"
-                    android:textSize="15dp"
                     android:text="Side Up: "
                     android:id="@+id/textviewrollonce"
-                    android:gravity="center"
-                    android:textStyle="bold"
+                    style="@style/TextviewStyle4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -131,25 +119,20 @@
                 <!-- switch to change current scoring team -->
                 <Switch
                     android:text="Roll Once"
-                    android:textColor="#00FF00"
+                    style="@style/switchcheckbox"
                     android:textStyle="bold"
                     android:gravity="center"
+                    android:textSize="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/switchrolltype" />
                 <!-- button to decrease score of selected team-->
                 <Button
-                    android:gravity="center"
-                    android:layout_marginTop="5px"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/btnrolldice"
-
+                    style="@style/ButtonStyle1"
                     android:text="Roll"
-                    android:textSize="50px"
-                    android:layout_marginBottom="2px"
                     android:onClick="rollDice"
                     />
 
@@ -166,20 +149,14 @@
                 <!-- text view to display team B -->
                 <TextView
                     android:layout_width="wrap_content"
-                    android:textColor="#000000"
-                    android:textSize="25dp"
-                    android:gravity="top"
-                    android:textStyle="bold"
+                    style="@style/TextviewStyle3"
                     android:text="Roll Twice"
                     android:layout_height="wrap_content" />
                 <!-- text view to display team B score-->
                 <TextView
                     android:layout_width="wrap_content"
-                    android:textColor="#000000"
-                    android:textSize="15dp"
                     android:id="@+id/textviewrolltwice"
-                    android:gravity="center"
-                    android:textStyle="bold"
+                    style="@style/TextviewStyle4"
                     android:text="Side Up:"
                     android:layout_height="wrap_content" />
 
@@ -213,20 +190,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ADD CUSTOM DICE"
-            android:layout_margin="2dp"
-            android:textColor="#ffffff"
+            style="@style/ButtonStyle2"
             android:background="#000000"
-            android:onClick="addNewDiceType"
-            android:layout_gravity="center_horizontal"
-            android:textStyle="bold"/>
+            android:onClick="addNewDiceType"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Custom Dice History"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            android:textSize="27dp"
+            style="@style/TextviewStyle5"
             />
     <LinearLayout
         android:layout_width="match_parent"
@@ -238,43 +210,29 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:text="Store"
-            android:textSize="10dp"
-            android:layout_margin="2dp"
-            android:textColor="#ffffff"
-            android:background="#000000"
-            android:onClick="storeCustomDiceHistory"
-            android:textStyle="bold"/>
+            style="@style/ButtonStyle3"
+            android:onClick="storeCustomDiceHistory"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:text="View"
-            android:textSize="10dp"
-            android:layout_margin="2dp"
-            android:textColor="#ffffff"
-            android:background="#000000"
-            android:onClick="viewCustomDiceHistory"
-            android:textStyle="bold"/>
+            style="@style/ButtonStyle3"
+            android:onClick="viewCustomDiceHistory"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:text="Delete"
-            android:textSize="10dp"
-            android:layout_margin="2dp"
-            android:textColor="#ffffff"
-            android:background="#000000"
-            android:onClick="deleteCustomDiceHistory"
-            android:textStyle="bold"/>
+            style="@style/ButtonStyle3"
+            android:onClick="deleteCustomDiceHistory"/>
 
     </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Previous Roll History"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            android:textSize="27dp"
+           style="@style/TextviewStyle5"
             />
     <LinearLayout
         android:layout_width="match_parent"
@@ -286,27 +244,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="View"
-            android:textSize="10dp"
-            android:layout_margin="2dp"
-            android:textColor="#ffffff"
-            android:background="#000000"
-            android:onClick="rollHistoryView"
-            android:layout_gravity="center_horizontal"
-            android:textStyle="bold"/>
+            style="@style/ButtonStyle3"
+            android:onClick="rollHistoryView"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="Delete"
-            android:textSize="10dp"
-            android:layout_margin="2dp"
-            android:textColor="#ffffff"
-            android:background="#000000"
-            android:onClick="rollHistoryDelete"
-            android:layout_gravity="center_horizontal"
-            android:textStyle="bold"/>
+            style="@style/ButtonStyle3"
+            android:onClick="rollHistoryDelete"/>
     </LinearLayout>
     </LinearLayout>
-
 </ScrollView>
 

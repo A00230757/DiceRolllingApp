@@ -5,15 +5,13 @@ actually in this activity there is a progress bar on the image-->
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    style="@style/LinearLayoutStyle"
     android:orientation="vertical"
     >
     <!--top text app name -->
     <TextView
         android:layout_width="wrap_content"
-        android:textStyle="bold"
-        android:textColor="#FFFF00"
-        android:textSize="20dp"
+        style="@style/splashtextview"
         android:layout_gravity="top|center"
         android:text="DICE ROLLING"
         android:layout_height="wrap_content" />
@@ -29,20 +27,19 @@ actually in this activity there is a progress bar on the image-->
         />
 
     <!--progress bar on the image view  -->
+<!--    android:indeterminateTint="@android:color/holo_orange_light"-->
     <ProgressBar
         style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
-        android:indeterminateTint="@android:color/holo_orange_light"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="50dp"
         android:id="@+id/progressBar4" />
 
     <!--bottom text made by harpreet -->
     <TextView
         android:layout_width="wrap_content"
-        android:textStyle="bold"
-        android:textColor="#FFFF00"
-        android:textSize="20dp"
+        style=""
         android:layout_gravity="right|bottom"
         android:text="Made by Harpreet"
         android:layout_height="wrap_content" />

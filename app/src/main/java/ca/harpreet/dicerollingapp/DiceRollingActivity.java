@@ -50,6 +50,7 @@ String allCustomDiceTypes="";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dice_rolling);
+
         textToSpeech=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() { // initilzation( to give memory) to text to speech
             @Override
             public void onInit(int status) {
