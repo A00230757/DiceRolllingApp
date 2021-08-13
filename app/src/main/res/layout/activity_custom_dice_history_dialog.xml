@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--this is a dialog activity to show custom dice added by user -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,11 +20,15 @@
             style="@style/LinearLayoutStyle"
             android:orientation="vertical"
             tools:context=".CustomDiceHistoryDialogActivity">
+<!--            text view to show Custom Added Sides List-->
+<!--            Custom styles are applied-->
+<!--            directly to each View-->
             <TextView
                 style="@style/TextviewStyle1"
                 android:text="Custom Added Sides List"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+<!--            list view to show all custom dice history added by user-->
             <ListView
                 android:id="@+id/lv1"
                 android:layout_width="match_parent"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--this is frame layout for making splash screen ,
-actually in this activity there is a progress bar on the image-->
+actually in this activity there is a progress bar below the image-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,11 @@ actually in this activity there is a progress bar on the image-->
     style="@style/LinearLayoutStyle"
     android:orientation="vertical"
     >
+<!--    Custom styles are applied-->
+<!--    directly to each View defined in theme styles file-->
     <!--top text app name -->
+
+<!--    inline styles styles also used where required-->
     <TextView
         android:layout_width="wrap_content"
         style="@style/splashtextview"
@@ -17,7 +21,7 @@ actually in this activity there is a progress bar on the image-->
         android:layout_height="wrap_content" />
 
 
-    <!-- image view ehose gravity is center and height is 230dp-->
+    <!-- image view whose gravity is center and height is 230dp-->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -26,7 +30,7 @@ actually in this activity there is a progress bar on the image-->
         android:src="@drawable/dicerolling"
         />
 
-    <!--progress bar on the image view  -->
+    <!--progress bar below the image view  -->
 <!--    android:indeterminateTint="@android:color/holo_orange_light"-->
     <ProgressBar
         style="?android:attr/progressBarStyle"
@@ -39,7 +43,7 @@ actually in this activity there is a progress bar on the image-->
     <!--bottom text made by harpreet -->
     <TextView
         android:layout_width="wrap_content"
-        style=""
+        style="@style/splashtextview"
         android:layout_gravity="right|bottom"
         android:text="Made by Harpreet"
         android:layout_height="wrap_content" />

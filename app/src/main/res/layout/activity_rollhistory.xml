@@ -9,7 +9,6 @@
         android:layout_height="match_parent"
         android:stretchColumns="1">
 
-        <!-- everything you already have -->
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
@@ -18,20 +17,24 @@
             style="@style/LinearLayoutStyle"
             android:orientation="vertical"
             tools:context=".RollhistoryActivity">
+<!--            text view for single roll history-->
             <TextView
                 style="@style/TextviewStyle1"
                 android:text="Single Roll History"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+<!--            listview to show the history of dice rolled once-->
             <ListView
                 android:id="@+id/lvsingleroll"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"></ListView>
+            <!--            text view for double roll history-->
             <TextView
                 style="@style/TextviewStyle1"
                 android:text="Double Roll History"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+            <!--            listview to show the history of dice rolled twice-->
             <ListView
                 android:id="@+id/lvdoubleroll"
                 android:layout_width="match_parent"

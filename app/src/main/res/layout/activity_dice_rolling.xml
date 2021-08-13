@@ -2,6 +2,8 @@
 <!-- i made layout so that this app runs in every size device ,
  not static attributes(height , width ) except in a image where it is required-->
 <!-- different mobile phones have different size , so scrollview to scrolling in small size mobile  phones-->
+
+<!--scroll view to add scrolling in activity-->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
@@ -9,15 +11,19 @@
 
     <!-- this is the main layout whose orientation is vertical-->
 
+
+<!--    Custom styles are applied to the-->
+<!--    app’s theme used in this-->
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         style="@style/LinearLayoutStyle"
         android:orientation="vertical">
 
-        <!-- this text view is used  for top text Score Keeping App-->
+        <!-- this text view is used  for top text Dice Rolling-->
+<!--        Custom styles are applied-->
+<!--        directly to each View defined in themes styles-->
         <TextView
             style="@style/TextviewStyle1"
             android:text="Dice Rolling"
@@ -45,12 +51,15 @@
             android:background="#cccccc"
             android:layout_width="match_parent"
             android:layout_height="10px"/>
+
+<!--        text view at top of scroll view . Select Die-->
         <TextView
             style="@style/TextviewStyle2"
             android:text="Select Die"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <!--to choose game type -->
+
+        <!--to choose dice type -->
         <Spinner
             android:id="@+id/spinnerdicetype"
             android:layout_width="match_parent"
@@ -63,21 +72,9 @@
             android:layout_width="match_parent"
             android:layout_height="10px"/>
 
-        <!-- a linear layout in which a sub linear layout is made
-         where team name and image is present -->
-
-
-        <!-- view for boundary in between-->
-        <View
-            android:background="#cccccc"
-            android:layout_width="match_parent"
-            android:layout_height="10px"/>
-
-
-
         <!--start ##################################################################### -->
-        <!-- linear layout for team score text views
-         and buttons to increase and decrease with switch-->
+        <!-- linear layout for Roll Once text views
+         and button to roll with switch-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,7 +95,7 @@
                     android:text="Roll Once"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <!-- text view to disply team A score -->
+                <!-- text view to disply Side Up for Roll Once -->
                 <TextView
                     android:text="Side Up: "
                     android:id="@+id/textviewrollonce"
@@ -108,7 +105,7 @@
 
             </LinearLayout>
 
-            <!-- to display increase /decrease button with switch score -->
+            <!-- to display Roll button and Switch From Roll Once to Twice -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="3"
@@ -116,7 +113,7 @@
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
 
-                <!-- switch to change current scoring team -->
+                <!-- switch to change Roll once /Twice -->
                 <Switch
                     android:text="Roll Once"
                     style="@style/switchcheckbox"
@@ -126,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/switchrolltype" />
-                <!-- button to decrease score of selected team-->
+                <!-- button to roll dice-->
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -138,21 +135,20 @@
 
             </LinearLayout>
 
-
-            <!-- to display second team score-->
+            <!-- to display Roll Twice Side Up-->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
-                <!-- text view to display team B -->
+                <!-- text view to display Roll Twice -->
                 <TextView
                     android:layout_width="wrap_content"
                     style="@style/TextviewStyle3"
                     android:text="Roll Twice"
                     android:layout_height="wrap_content" />
-                <!-- text view to display team B score-->
+                <!-- text view to display Sides Ups For Roll Twice-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:id="@+id/textviewrolltwice"
@@ -171,6 +167,7 @@
             android:layout_width="match_parent"
             android:layout_height="10px"/>
 
+<!--        text view to show Add Your Own Number Dice-->
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -179,6 +176,7 @@
     android:textSize="27dp"
     />
 
+<!--        edit text to accept custom dice sides , user want to enter-->
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -186,6 +184,7 @@
             android:hint="Enter Sides of Dice"
             android:id="@+id/edittextowndicesides"
             />
+<!--        button to add custom side -->
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -194,12 +193,15 @@
             android:background="#000000"
             android:onClick="addNewDiceType"/>
 
+<!--        text view to show Custom Dice History-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Custom Dice History"
             style="@style/TextviewStyle5"
             />
+
+<!--        buttons to store view and delete custom dice history-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -228,12 +230,16 @@
             android:onClick="deleteCustomDiceHistory"/>
 
     </LinearLayout>
+
+<!--        text view to show Previous Roll History-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Previous Roll History"
            style="@style/TextviewStyle5"
             />
+
+<!--        buttons to view and delete roll history-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

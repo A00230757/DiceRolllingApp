@@ -28,7 +28,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                startActivity(new Intent(getApplicationContext(),DiceRollingActivity.class));// main activity/game activity started
+                startActivity(new Intent(getApplicationContext(),DiceRollingActivity.class));// main activity/dice rolling activity started
                 mp.stop();// sound stopped
             }
         }).start();// to start thread
