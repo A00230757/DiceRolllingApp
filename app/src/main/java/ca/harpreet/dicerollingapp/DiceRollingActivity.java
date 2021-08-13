@@ -2,6 +2,7 @@ package ca.harpreet.dicerollingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -43,7 +44,8 @@ public class DiceRollingActivity extends AppCompatActivity {
     Die objdie;
 
 String allCustomDiceTypes="";
-    String rollHistory="";
+    String singleRollHistory="";
+    String doubleRollHistory="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +77,8 @@ String allCustomDiceTypes="";
         arraydicetype.add("10");
         arraydicetype.add("12");
         arraydicetype.add("20");
+        restorePreviousHistoryCustomDice();
+        restorePreviousRollHistory();
         initializeArray();
         spinnerdicetype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {// spinner listener when we change game type
             @Override
@@ -122,6 +126,29 @@ String allCustomDiceTypes="";
         });
     }
 
+    public void restorePreviousHistoryCustomDice(){
+        if(getSharedPreferences("MYPref1",MODE_PRIVATE).contains("customdicehistory")){
+            SharedPreferences pref = getSharedPreferences("MYPref1",MODE_PRIVATE);
+            String customdicehistory = pref.getString("customdicehistory","No Custom Dice Present In List, Empty history");
+            String[] parts = customdicehistory.split(",");
+            allCustomDiceTypes = customdicehistory;
+            for (int i =0;i<parts.length;i++){
+                arraydicetype.add(parts[i]);
+            }
+        }
+    }
+    public void restorePreviousRollHistory(){
+        if(getSharedPreferences("MYPref2",MODE_PRIVATE).contains("singlerollhistory")){
+            SharedPreferences pref = getSharedPreferences("MYPref2",MODE_PRIVATE);
+            String rolloncehistory = pref.getString("singlerollhistory","Empty history");
+            singleRollHistory = rolloncehistory;
+        }
+        if(getSharedPreferences("MYPref3",MODE_PRIVATE).contains("doublerollhistory")){
+            SharedPreferences pref = getSharedPreferences("MYPref3",MODE_PRIVATE);
+            String rolltwicehistory = pref.getString("doublerollhistory","Empty history");
+            doubleRollHistory = rolltwicehistory;
+        }
+    }
     public  void initializeArray(){
 
         final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arraydicetype); // adapter binded with spinnercountry1
@@ -140,6 +167,7 @@ String allCustomDiceTypes="";
         if( rollType.equals("once")){
             objdie = new Die(Integer.parseInt(dicetype));
             sideUpAfterFirstRoll=objdie.getSideUp();
+            singleRollHistory=singleRollHistory+"Dice Sides: "+dicetype+"\n SideUp: "+sideUpAfterFirstRoll+",";
             textviewrollonce.setText("Side up: "+sideUpAfterFirstRoll);
             textToSpeech.speak("Side Up"+sideUpAfterFirstRoll, TextToSpeech.QUEUE_FLUSH, null);
         }
@@ -148,6 +176,7 @@ String allCustomDiceTypes="";
             sideUpAfterFirstRoll=objdie.getSideUp();
             objdie.roll();
             sideUpAfterSecondRoll=objdie.getSideUp();
+            doubleRollHistory=doubleRollHistory+"Dice Sides: "+dicetype+" \n1st Roll SideUp: "+sideUpAfterFirstRoll+"\n 2nd Roll SideUp: "+sideUpAfterSecondRoll+",";
             textviewrolltwice.setText("1stRoll SideUp: "+sideUpAfterFirstRoll+"\n2ndRoll SideUp:"+sideUpAfterSecondRoll);
             textToSpeech.speak("1st Roll Side Up: "+sideUpAfterFirstRoll+",Second Roll Side Up:"+sideUpAfterSecondRoll, TextToSpeech.QUEUE_FLUSH, null);
         }
@@ -199,28 +228,36 @@ String allCustomDiceTypes="";
     }
 
     public void storeCustomDiceHistory(View view){
-
         if(!allCustomDiceTypes.isEmpty()){
             SharedPreferences pref = getSharedPreferences("MYPref1",MODE_PRIVATE);
             SharedPreferences.Editor editor = pref.edit();
-            editor.putString("customdicehistory",allCustomDiceTypes.substring(0,allCustomDiceTypes.length()-1));
+            editor.putString("customdicehistory",allCustomDiceTypes);
             editor.commit();
             Toast.makeText(getApplicationContext(), "Custom Dice History Saved", Toast.LENGTH_SHORT).show();
         }
         else{
             Toast.makeText(getApplicationContext(), "No Any Custom Dice is present in list, Add One First", Toast.LENGTH_SHORT).show();
         }
-
-
     }
-    public void viewCustomDiceHistory(View view){
+    public void storeCustomDiceHistoryAuto(){
         if(!allCustomDiceTypes.isEmpty()){
             SharedPreferences pref = getSharedPreferences("MYPref1",MODE_PRIVATE);
-            String customdicehistory = pref.getString("customdicehistory","No Custom Dice Present In List, Empty history");
-            Toast.makeText(this, customdicehistory, Toast.LENGTH_LONG).show();
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("customdicehistory",allCustomDiceTypes);
+            editor.commit();
         }
         else{
-            Toast.makeText(this, "No Custom Dice Present In List, Empty history", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "No Any Custom Dice is present in list, Add One First", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void viewCustomDiceHistory(View view){
+        if(!allCustomDiceTypes.isEmpty() && getSharedPreferences("MYPref1",MODE_PRIVATE).contains("customdicehistory")){
+            storeCustomDiceHistoryAuto();
+            Intent intent = new Intent(this, CustomDiceHistoryDialogActivity.class);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "Either Empty history/Click Store Button To Refresh", Toast.LENGTH_SHORT).show();
         }
     }
     public void deleteCustomDiceHistory(View view){
@@ -244,7 +281,52 @@ String allCustomDiceTypes="";
             Toast.makeText(this, "No Custom Dice History, Already Empty", Toast.LENGTH_SHORT).show();
         }
     }
-    public void rollHistory(View view){
-
+    public void rollHistoryView(View view){
+        if(!singleRollHistory.isEmpty() || !doubleRollHistory.isEmpty()){
+            storeRollHistoryAuto();
+            Intent intent = new Intent(this, RollhistoryActivity.class);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "Empty history. Roll dice to get history", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void storeRollHistoryAuto(){
+        if(!singleRollHistory.isEmpty()){
+            SharedPreferences pref = getSharedPreferences("MYPref2",MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("singlerollhistory",singleRollHistory);
+            editor.commit();
+        }
+        if(!doubleRollHistory.isEmpty()){
+            SharedPreferences pref = getSharedPreferences("MYPref3",MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("doublerollhistory",doubleRollHistory);
+            editor.commit();
+        }
+    }
+    public void rollHistoryDelete(View view){
+        if(!singleRollHistory.isEmpty()){
+            SharedPreferences pref = getSharedPreferences("MYPref2",MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.clear();
+            editor.commit();
+            singleRollHistory="";
+            Toast.makeText(getApplicationContext(), "All Roll History Cleared", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "No Roll History, Already Empty", Toast.LENGTH_SHORT).show();
+        }
+        if(!doubleRollHistory.isEmpty()){
+            SharedPreferences pref = getSharedPreferences("MYPref3",MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.clear();
+            editor.commit();
+            doubleRollHistory="";
+            Toast.makeText(getApplicationContext(), "All Roll History Cleared", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "No Roll History, Already Empty", Toast.LENGTH_SHORT).show();
+        }
     }
 }

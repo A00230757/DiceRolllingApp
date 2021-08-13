@@ -9,6 +9,10 @@
         android:roundIcon="@drawable/dicerollingappicon"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiceRollingApp">
+        <activity android:name=".RollhistoryActivity"></activity>
+        <activity
+            android:name=".CustomDiceHistoryDialogActivity"
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

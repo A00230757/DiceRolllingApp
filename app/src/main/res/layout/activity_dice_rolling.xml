@@ -276,17 +276,36 @@
             android:textStyle="bold"
             android:textSize="27dp"
             />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="5"
+        android:orientation="horizontal">
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:text="View"
             android:textSize="10dp"
             android:layout_margin="2dp"
             android:textColor="#ffffff"
             android:background="#000000"
-            android:onClick="rollHistory"
+            android:onClick="rollHistoryView"
             android:layout_gravity="center_horizontal"
             android:textStyle="bold"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Delete"
+            android:textSize="10dp"
+            android:layout_margin="2dp"
+            android:textColor="#ffffff"
+            android:background="#000000"
+            android:onClick="rollHistoryDelete"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"/>
+    </LinearLayout>
     </LinearLayout>
 
 </ScrollView>
