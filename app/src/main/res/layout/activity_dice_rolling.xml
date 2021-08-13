@@ -1,9 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DiceRollingActivity">
+<!-- i made layout so that this app runs in every size device ,
+ not static attributes(height , width ) except in a image where it is required-->
+<!-- different mobile phones have different size , so scrollview to scrolling in small size mobile  phones-->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- this is the main layout whose orientation is vertical-->
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFA500"
+        android:orientation="vertical">
+
+        <!-- this text view is used  for top text Score Keeping App-->
+        <TextView
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:text="Dice Rolling"
+            android:layout_margin="10px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!--this is just a view to show a boundary in between -->
+        <View
+            android:background="#cccccc"
+            android:layout_width="match_parent"
+            android:layout_height="10px"/>
+
+        <!--checkbox to on/off game music -->
+        <CheckBox
+            android:text="Game Music On/Off"
+            android:layout_width="match_parent"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkboxgamemusic" />
+
+        <!--this is a view to show a boundary in between -->
+        <View
+            android:background="#cccccc"
+            android:layout_width="match_parent"
+            android:layout_height="10px"/>
+
+        <!--to choose game type -->
+        <Spinner
+            android:id="@+id/spinnergametype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Spinner>
+
+        <!--this is a view to show a boundary in between -->
+        <View
+            android:background="#cccccc"
+            android:layout_width="match_parent"
+            android:layout_height="10px"/>
+
+        <!-- a linear layout in which a sub linear layout is made
+         where team name and image is present -->
+
+
+        <!-- view for boundary in between-->
+        <View
+            android:background="#cccccc"
+            android:layout_width="match_parent"
+            android:layout_height="10px"/>
+
+
+
+        <!--start ##################################################################### -->
+        <!-- linear layout for team score text views
+         and buttons to increase and decrease with switch-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="9"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <!-- to display score of first team -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- text view to display team A-->
+                <TextView
+                    android:textColor="#000000"
+                    android:textSize="25dp"
+                    android:text="Team A"
+                    android:gravity="top"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <!-- text view to disply team A score -->
+                <TextView
+                    android:textColor="#000000"
+                    android:textSize="25dp"
+                    android:text="Score: 0"
+                    android:id="@+id/textviewteam1score"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <!-- to display increase /decrease button with switch score -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <!-- button to increase score of selected team-->
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="2px"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:id="@+id/btplus"
+                    android:background="@drawable/roundedbtn"
+                    android:text="+"
+                    android:textSize="70px"
+                    android:layout_marginBottom="5px"
+                    android:onClick="increaseScore"
+                    />
+                <!-- switch to change current scoring team -->
+                <Switch
+                    android:text="On-Team A Selected"
+                    android:textColor="#00FF00"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/switchteamscore" />
+                <!-- button to decrease score of selected team-->
+                <Button
+                    android:gravity="center"
+                    android:layout_marginTop="5px"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btminus"
+                    android:background="@drawable/roundedbtn"
+                    android:text="-"
+                    android:textSize="70px"
+                    android:layout_marginBottom="2px"
+                    android:onClick="decreaseScore"
+                    />
+
+            </LinearLayout>
+
+
+            <!-- to display second team score-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <!-- text view to display team B -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="#000000"
+                    android:textSize="25dp"
+                    android:gravity="top"
+                    android:textStyle="bold"
+                    android:text="Team B"
+                    android:layout_height="wrap_content" />
+                <!-- text view to display team B score-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="#000000"
+                    android:textSize="25dp"
+                    android:id="@+id/textviewteam2score"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:text="Score: 0"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <!--end ##################################################################### -->
+
+
+        <!-- view for boundary in between-->
+        <View
+            android:background="#cccccc"
+            android:layout_width="match_parent"
+            android:layout_height="10px"/>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Add Your Own Number Dice"
+    android:textStyle="bold"
+    android:textSize="30dp"
+    />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ente Sides of Dice"
+            android:id="@+id/edittextowndicesides"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD"
+            android:textColor="#ffffff"
+            android:background="#000000"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"/>
+
+
+    </LinearLayout>
+
+</ScrollView>
+
