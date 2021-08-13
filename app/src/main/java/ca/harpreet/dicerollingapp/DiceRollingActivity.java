@@ -1,6 +1,8 @@
 package ca.harpreet.dicerollingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +42,8 @@ public class DiceRollingActivity extends AppCompatActivity {
 
     Die objdie;
 
-
+String allCustomDiceTypes="";
+    String rollHistory="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,6 +186,7 @@ public class DiceRollingActivity extends AppCompatActivity {
                     initializeArray();
                     spinnerdicetype.setSelection(arraydicetype.size()-1);
                     edittextowndicesides.setText("");
+                    allCustomDiceTypes=allCustomDiceTypes+newDiceSides+",";
                     Toast.makeText(getApplicationContext(),"New Dice Added In Spinner View, Choose Now",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -191,6 +195,56 @@ public class DiceRollingActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Number of dice sides must be numeric",Toast.LENGTH_SHORT).show();
         }
 
+
+    }
+
+    public void storeCustomDiceHistory(View view){
+
+        if(!allCustomDiceTypes.isEmpty()){
+            SharedPreferences pref = getSharedPreferences("MYPref1",MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("customdicehistory",allCustomDiceTypes.substring(0,allCustomDiceTypes.length()-1));
+            editor.commit();
+            Toast.makeText(getApplicationContext(), "Custom Dice History Saved", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "No Any Custom Dice is present in list, Add One First", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+    public void viewCustomDiceHistory(View view){
+        if(!allCustomDiceTypes.isEmpty()){
+            SharedPreferences pref = getSharedPreferences("MYPref1",MODE_PRIVATE);
+            String customdicehistory = pref.getString("customdicehistory","No Custom Dice Present In List, Empty history");
+            Toast.makeText(this, customdicehistory, Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(this, "No Custom Dice Present In List, Empty history", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void deleteCustomDiceHistory(View view){
+        if(!allCustomDiceTypes.isEmpty()) {
+            SharedPreferences pref = getSharedPreferences("MYPref1",MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.clear();
+            editor.commit();
+            allCustomDiceTypes="";
+            arraydicetype.clear();
+            arraydicetype.add("4");
+            arraydicetype.add("6");
+            arraydicetype.add("8");
+            arraydicetype.add("10");
+            arraydicetype.add("12");
+            arraydicetype.add("20");
+            initializeArray();
+            Toast.makeText(getApplicationContext(), "All Custom Dice History Cleared", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "No Custom Dice History, Already Empty", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void rollHistory(View view){
 
     }
 }
